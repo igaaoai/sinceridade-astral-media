@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Autorização recebida</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:-apple-system,sans-serif;max-width:600px;margin:80px auto;padding:0 20px;text-align:center;color:#222}
+code{display:block;background:#f4f4f4;padding:16px;border-radius:8px;margin:20px 0;word-break:break-all;font-size:1.1em;user-select:all}
+button{padding:10px 20px;font-size:1em;cursor:pointer;border-radius:6px;border:1px solid #ccc}
+.aviso{color:#a00;margin-top:24px}
+</style></head>
+<body>
+<h1>Código recebido</h1>
+<p>Copie o valor abaixo e cole de volta na conversa com o Claude.</p>
+<code id="codigo">(lendo a URL…)</code>
+<button onclick="copiar()">Copiar</button>
+<p class="aviso" id="erro"></p>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const err = params.get('error');
+  const el = document.getElementById('codigo');
+  if (code) { el.textContent = code; }
+  else if (err) { el.textContent = '(nenhum código — erro: ' + err + ')'; document.getElementById('erro').textContent = params.get('error_description') || ''; }
+  else { el.textContent = '(nenhum parâmetro "code" na URL)'; }
+  function copiar() { navigator.clipboard.writeText(el.textContent); }
+</script>
+</body>
+</html>
